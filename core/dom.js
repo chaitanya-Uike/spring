@@ -14,7 +14,18 @@ export function _$elem(tag, props) {
 
     Object.keys(props).forEach((propName) => {
         if (propName === "children") return
-        node[propName.toLowerCase()] = props[propName]
+        if (propName === "className") {
+            node.className = props[propName]
+        }
+        else if (propName === "style") {
+            createEffect(() => {
+                node.style = styleObjToCss(props[propName])
+            })
+        }
+        else {
+            node[propName.toLowerCase()] = props[propName]
+        }
+
     })
 
     return node
@@ -63,4 +74,23 @@ function insert(container, effect) {
         if (node) handleInsertion(node)
         else removeNode()
     })
+}
+
+
+function styleObjToCss(styleObj) {
+    let styleCss = "", sep = ":", term = ";";
+
+    for (let prop in styleObj) {
+        if (styleObj.hasOwnProperty(prop)) {
+            let val = styleObj[prop];
+            styleCss += `${jsToCss(prop)} : ${val} ${term}`;
+        }
+    }
+
+    return styleCss;
+
+}
+
+function jsToCss(s) {
+    return s.replace(/([A-Z])/, '-$1').toLowerCase();
 }

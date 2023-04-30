@@ -1,4 +1,4 @@
-import { createSignal } from "../core"
+import { createSignal, createEffect } from "../core"
 
 function Greet(props) {
     return (
@@ -11,12 +11,12 @@ function Greet(props) {
 function Counter() {
     const [count, setCount] = createSignal(0)
     return (
-        <div>
+        <div className="counter-container">
             <button onCLick={() => setCount(count() + 1)}>
                 count : {count()}
             </button>
             <button onClick={(() => setCount(count() + 2))}>
-                double count : {count()}
+                double : {count()}
             </button>
         </div>
     )
@@ -37,11 +37,22 @@ function App() {
     const [lastName, setLastName] = createSignal("doe")
     const [show, setShow] = createSignal(true)
 
-    return <div>
-        {show() && <Greet firstName={firstName} lastName={lastName} />}
-        <button onClick={() => setShow(!show())}>toggle</button>
-        <input type="text" value={firstName()} onInput={(e) => setFirstName(e.target.value)} />
-        <input type="text" value={lastName()} onInput={(e) => setLastName(e.target.value)} />
+    const [upper, setUpper] = createSignal("")
+
+    createEffect(() => {
+        setUpper(`${firstName()} ${lastName()}`.toUpperCase())
+    })
+
+    return <div className="app-container">
+        <div className="toggle-container">
+            {show() && <Greet firstName={firstName} lastName={lastName} />}
+            <p style={{ color: "pink" }}>{upper()}</p>
+            <button onClick={() => setShow(!show())}>toggle</button>
+        </div>
+        <div className="input-container">
+            <input type="text" value={firstName()} onInput={(e) => setFirstName(e.target.value)} />
+            <input type="text" value={lastName()} onInput={(e) => setLastName(e.target.value)} />
+        </div>
         <Counter />
         <Timer />
     </div>
