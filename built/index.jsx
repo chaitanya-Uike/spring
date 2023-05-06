@@ -45,7 +45,7 @@ function App() {
         children: []
       }), _$elem("p", {
         style: {
-          color: show() ? "pink" : "gray"
+          color: "pink"
         },
         children: [() => upper()]
       }), _$elem("button", {

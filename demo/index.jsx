@@ -22,7 +22,6 @@ function Counter() {
     )
 }
 
-
 function Timer() {
     const [time, setTime] = createSignal(0)
 
@@ -30,7 +29,6 @@ function Timer() {
 
     return <h1>time: {time()}</h1>
 }
-
 
 function App() {
     const [firstName, setFirstName] = createSignal("john")

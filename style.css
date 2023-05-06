@@ -118,7 +118,7 @@ button:focus-visible {
   margin-bottom: 30px;
 }
 
-.input-container input {
+input {
   font-size: 16px;
   padding: 10px 15px;
   border-radius: 8px;
@@ -131,4 +131,10 @@ button:focus-visible {
   column-gap: 20px;
   align-items: center;
   justify-content: center;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 }
